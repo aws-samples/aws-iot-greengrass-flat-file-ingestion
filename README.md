@@ -21,7 +21,7 @@ Since we don't have an actual on-premises environment to use for this walkthroug
 
 ## Prerequisites
 1. [Create a keypair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#prepare-key-pair).
-1. [Launch a new CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) in the N. Virginia (us-east-1) region using [iot-cfn.yml](iot-cfn.yml). 
+1. [Launch a new CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) in the N. Virginia (us-east-1) region using <a href="iot-cfn.yml" download>iot-cfn.yml</a>. 
     - Parameters:
         - Name the stack `IoTGreengrass`.
         - For `EC2KeyPairName`, use the EC2 keypair you just created for. Leave off the `.pem` extension.
@@ -64,7 +64,7 @@ AWS IoT Greengrass provides a Lambda runtime environment for user-defined code t
     - Search for `Lambda` in the Services drop-down menu and select it.
     - Select the `file_ingestion_lambda` function.
     - From the `Function code` pane, click `Actions` then `Upload a .zip file`.
-    - Upload the provided [zip file](dist/file_ingestion_greengrass_lambda.zip) containing the Lambda code.
+    - Upload <a href="dist/file_ingestion_greengrass_lambda.zip" download>the provided zip file</a> containing the Lambda code.
     - Select `Actions` > `Publish new version` > `Publish`.
 1. Update the Lambda Alias to point to the new version.
     - Select the `Version: X` drop-down ("X" being the latest version number). 
