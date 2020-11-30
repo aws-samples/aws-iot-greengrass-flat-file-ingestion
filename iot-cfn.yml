@@ -40,6 +40,25 @@ Resources:
   # GREENGRASS RESOURCES SECTION
   # This section contains all the Greengrass related resources
   #############################################################################
+  GreengrassLoggerDefinition:
+    Type: 'AWS::Greengrass::LoggerDefinition'
+    Properties:
+      Name: ggLoggerDefinition
+  
+  GreengrassLoggerDefinitionVersion:
+    Type: 'AWS::Greengrass::LoggerDefinitionVersion'
+    Properties:
+      LoggerDefinitionId: !Ref GreengrassLoggerDefinition
+      Loggers:
+        - Id: ggSystemLogger
+          Type: AWSCloudWatch
+          Component: GreengrassSystem
+          Level: INFO
+        - Id: ggLambdaLogger
+          Type: AWSCloudWatch
+          Component: Lambda
+          Level: INFO
+  
   GreengrassGroup:
     Type: AWS::Greengrass::Group
     DependsOn: GGSampleFunctionVersion
@@ -49,6 +68,7 @@ Resources:
       InitialVersion:
         CoreDefinitionVersionArn: !Ref GreengrassCoreDefinitionVersion
         SubscriptionDefinitionVersionArn: !GetAtt SubscriptionDefinition.LatestVersionArn
+        LoggerDefinitionVersionArn: !Ref GreengrassLoggerDefinitionVersion
 
   GreengrassCoreDefinition:
     Type: AWS::Greengrass::CoreDefinition
@@ -274,7 +294,7 @@ Resources:
 
   WindowsIoTInstance:
     Type: AWS::EC2::Instance
-    DependsOn: InstanceAZ
+    DependsOn: InstanceAZFunction
     Properties:
       SubnetId: !Ref PublicSubnet1
       InstanceType: "t3.small"
@@ -289,7 +309,7 @@ Resources:
 
   GreengrassInstance:
     Type: "AWS::EC2::Instance"
-    DependsOn: [GreengrassGroup, InstanceAZ]
+    DependsOn: [GreengrassGroup, InstanceAZFunction]
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", Greengrass]
       InstanceType: t3.small

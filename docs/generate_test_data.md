@@ -7,10 +7,10 @@ Make sure you have the CloudFormation outputs handy. You'll need these IPs for m
 1. Map a network drive on the Windows server to the samba share running on the Linux server:
     - Click the Start button and open a new PowerShell ISE window.
 
-        ![Powershell ISE](../img/40-powershell-ise.png)
+        ![Powershell ISE](img/40-powershell-ise.png)
     - Expand the script pane.
 
-        ![Show script pane](../img/41-show-script-pane.png)
+        ![Show script pane](img/41-show-script-pane.png)
     - Paste the following commands into the script pane of the ISE window, replacing `<private-ip>` with the `GreengrassPrivateIP` CloudFormation output you wrote down earlier. Run the commands by clicking the green play button.
         ```powershell
         $user = "iot"
@@ -19,13 +19,13 @@ Make sure you have the CloudFormation outputs handy. You'll need these IPs for m
         New-PSDrive –Name "Z" –PSProvider FileSystem –Root "\\<private-ip>\iotshare" -Credential $credential –Persist 
         ```
         
-        ![Map network drive](../img/42-map-network-drive.png)
+        ![Map network drive](img/42-map-network-drive.png)
         > NOTE: Use a more secure authentication method for your file shares in a real production environment.
 
 1. Create the test data:
     - Open a new ISE tab by clicking the new file icon. 
 
-        ![New ISE tab](../img/43-new-ise-tab.png)
+        ![New ISE tab](img/43-new-ise-tab.png)
     - Paste the following commands into the new tab and click run them by clicking the green play button.
         ```powershell
         New-Item -ItemType Directory -Force -Path 'C:\temp'
@@ -133,18 +133,18 @@ Make sure you have the CloudFormation outputs handy. You'll need these IPs for m
         ```
     - Open a Windows Explorer window and navigate to `C:\temp` to validate that the previous commands created three PowerShell scripts. We'll use these to generate test data.
 
-        ![Powershell scripts](../img/44-ps1-scripts.png)
+        ![Powershell scripts](img/44-ps1-scripts.png)
     - Return to the PowerShell ISE window and open the `C:\temp\run.ps1` file. Run it by clicking the green play button. 
         > This script will loop indefinitely, creating sample data and writing it to the samba share until you stop it. It will generate a new flat file (.csv) every 30 seconds in the `iotshare` samba share you mapped to the `Z:\` drive earlier.
 
-        ![Run loop](../img/45-run-ps1.png)
+        ![Run loop](img/45-run-ps1.png)
 1. Verify data is being written to the file share:
     - You can verify that the file is being written to the share by returning to your ssh session connected to the Greengrass Linux server and running the following command:
         ```bash
         cat /samba/iot/iotdata.csv
         ```
 
-        ![Test data on share](../img/46-test-data-on-share.png)
+        ![Test data on share](img/46-test-data-on-share.png)
 
         > You may have to run this a few times to see the file contents because it is continually being written by the Windows server and then processed and deleted by the Lambda function. The Lambda function parses the data in the .csv file, converts it to JSON, and writes the data into an MQTT topic that is picked up by AWS IoT.
     - You can also watch the file in Windows Explorer to see it continually written then processed and deleted.

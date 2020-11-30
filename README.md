@@ -86,14 +86,8 @@ AWS IoT Greengrass provides a Lambda runtime environment for user-defined code t
         - Set `Timeout` to 25 seconds.
         - Set `Lambda lifecycle` to `Make this function long-lived and keep it running indefinitely`.
 
-## Finalize Greengrass Settings and Deploy
+## Deploy Greengrass Group
 Before we deploy our Greengrass group to the Greengrass Core device, we need to configure logging and update containerization settings. 
-1. Configure Lambda logging and containerization settings.
-    - On the Greengrass Group configuration page, choose `Settings`.
-    - Under `Local logs configuration`, choose `Edit`.
-    - Choose `Add another log type`.
-    - Select `User Lambdas` and `Greengrass system`, then click `Update` > `Save`.
-    - For `Default Lambda function containerization`, select `No container`. Click `Update default Lambda execution configuration`. If a warning pops up, select `Continue`.
 1. Restart the Greengrass daemon:
     - A daemon restart is required after changing containerization settings. Run the following commands on the Greengrass instance to restart the Greengrass daemon:
         ```bash
