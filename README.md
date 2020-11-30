@@ -87,7 +87,6 @@ AWS IoT Greengrass provides a Lambda runtime environment for user-defined code t
         - Set `Lambda lifecycle` to `Make this function long-lived and keep it running indefinitely`.
 
 ## Deploy Greengrass Group
-Before we deploy our Greengrass group to the Greengrass Core device, we need to configure logging and update containerization settings. 
 1. Restart the Greengrass daemon:
     - A daemon restart is required after changing containerization settings. Run the following commands on the Greengrass instance to restart the Greengrass daemon:
         ```bash
