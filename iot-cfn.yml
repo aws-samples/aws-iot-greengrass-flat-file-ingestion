@@ -11,8 +11,7 @@ Parameters:
 
   EC2KeyPairName:
     Description: The name of the key pair to use for provisioning EC2 instances 
-    Type: String
-    Default: your-keypair-name
+    Type: AWS::EC2::KeyPair::KeyName
 
   SecurityAccessCIDR:
     Description: CIDR block to limit inbound access for SSH and RDP
