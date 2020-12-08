@@ -7,7 +7,7 @@ AWS provides a suite of [IoT](https://aws.amazon.com/iot/) and [Edge](https://aw
 
 # Overview of solution
 
-This solution provides a working example of an edge device running [AWS IoT Greengrass](https://aws.amazon.com/greengrass/?nc=sn&loc=2&dn=2) with an [AWS Lambda](https://aws.amazon.com/lambda/) function that watches a Samba file share for new .csv files (presumably containing device or assembly line data). When it finds a new file, it will transform it to JSON format and write it to [AWS IoT Core](https://aws.amazon.com/iot-core/?nc=sn&loc=2&dn=3). The data is then sent to [AWS IoT Analytics](https://aws.amazon.com/iot-analytics/?nc=sn&loc=2&dn=6) for processing and storage, and [Amazon QuickSight](https://aws.amazon.com/quicksight/) is used to visualize and gain insights from the data.
+This solution provides a working example of an edge device running [AWS IoT Greengrass](https://aws.amazon.com/greengrass/?nc=sn&loc=2&dn=2) with an [AWS Lambda](https://aws.amazon.com/lambda/) function that watches a [Samba file share](https://en.wikipedia.org/wiki/Samba_(software)) for new .csv files (presumably containing device or assembly line data). When it finds a new file, it will transform it to JSON format and write it to [AWS IoT Core](https://aws.amazon.com/iot-core/?nc=sn&loc=2&dn=3). The data is then sent to [AWS IoT Analytics](https://aws.amazon.com/iot-analytics/?nc=sn&loc=2&dn=6) for processing and storage, and [Amazon QuickSight](https://aws.amazon.com/quicksight/) is used to visualize and gain insights from the data.
 
 ![Architecture Diagram](docs/architecture-diagram/greengrass-file-ingestion.png)
 
@@ -31,8 +31,8 @@ First, we’ll show you the steps to launch the AWS IoT Greengrass resources usi
 1. [Launch a new AWS CloudFormation stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html) in the N. Virginia (us-east-1) Region using <a href="https://github.com/aws-samples/aws-iot-greengrass-flat-file-ingestion/raw/main/iot-cfn.yml" download>iot-cfn.yml</a>, which represents the simulated environment described in the preceding bullet. 
     - Parameters:
         - Name the stack `IoTGreengrass`.
-        - For `EC2KeyPairName`, use the EC2 key pair you just created for. Leave off the `.pem` extension.
-        - For `SecurityAccessCIDR`, use your public IP with a /32 CIDR (i.e. `1.1.1.1/32`). 
+        - For `EC2KeyPairName`, select the EC2 key pair you just created from the drop-down menu.
+        - For `SecurityAccessCIDR`, use your [public IP](http://checkip.amazonaws.com/) with a /32 CIDR (i.e. `1.1.1.1/32`). 
             - You can also accept the default of `0.0.0.0/0` if you can have SSH and RDP being open to all sources on the EC2 instances in this demo environment.
         - Accept the defaults for the remaining parameters.
     - View the `Resources` tab after stack creation completes. The stack creates the following resources:
